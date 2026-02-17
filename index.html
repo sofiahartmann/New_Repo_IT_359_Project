@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Laney and Sofia page</title>
-</head>
 <body>
 
-  <h1>Welcome!</h1>
+<h2>Ask Laney and Sofia anything!!</h2>
 
-  <input id="userInput" placeholder="Type something">
-  <button onclick="showInput()">Submit</button>
+<input id="input">
+<button onclick="run()">Ask!</button>
 
-  <div id="output"></div>
+<div id="out"></div>
 
-  <script>
-    function showInput() {
-      var input = document.getElementById("userInput").value;
-      document.getElementById("output").innerHTML = input;
-    }
-  </script>
+<script>
+function run() {
+  const data = document.getElementById("input").value;
+  document.getElementById("out").innerHTML = data;
+}
+</script>
 
 </body>
 </html>
