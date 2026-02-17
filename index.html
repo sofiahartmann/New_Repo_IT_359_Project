@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="style.css">
-  <title>Laney and Sofia website!</title>
+  <title>Laney and Sofia page</title>
 </head>
 <body>
-  <h1>this is so secure and safe, no vulnerabilities here!</h1>
-  <p>This is my free HTML website.</p>
+
+  <h1>Welcome!</h1>
+
+  <input id="userInput" placeholder="Type something">
+  <button onclick="showInput()">Submit</button>
+
+  <div id="output"></div>
+
+  <script>
+    function showInput() {
+      var input = document.getElementById("userInput").value;
+      document.getElementById("output").innerHTML = input;
+    }
+  </script>
+
 </body>
 </html>
-
