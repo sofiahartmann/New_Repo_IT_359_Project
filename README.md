@@ -15,3 +15,5 @@ We will be using one intentionally vulnerable web page to demonstrate with, AI t
 - Week 4-6: Test the XSS payloads to make sure that they work with our page, begin research on proper AI prompt to get the information that we need
 - Week 7-9: Implement the ai explanation and suggested fixes, and attempt implementing the suggestions into our site to see if we can fix them.
 - Week 10-12: Test all features from start to finish, create final project documents and demonstrations if neccesary.
+
+## Implementation of AI
