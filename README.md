@@ -17,3 +17,5 @@ We will be using one intentionally vulnerable web page to demonstrate with, AI t
 - Week 10-12: Test all features from start to finish, create final project documents and demonstrations if neccesary.
 
 ## Implementation of AI
+
+Our project will use the **phi4-reasoning:latest (14.7B)** AI model. We chose this model because it is designed for strong logical reasoning and technical explanations, which makes it well suited for analyzing web security vulnerabilities like Cross-Site Scripting (XSS).
