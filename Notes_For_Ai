@@ -1,2 +1,6 @@
 **Notes AI usage
 -sushi.it.ilstu.edu:8080
+-Code for the api key within my own coomputer
+  setx OPENAI_API_KEY ""
+Get the api key from the sushi page
+
