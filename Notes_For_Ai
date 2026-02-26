@@ -3,4 +3,5 @@
 -Code for the api key within my own coomputer
   setx OPENAI_API_KEY ""
 Get the api key from the sushi page
+Api key has been saved locally on my device
 
