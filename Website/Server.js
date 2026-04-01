@@ -1,6 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import OpenAI from "openai";
+import fs from "fs";
+import path from "path";
 
 const app = express();
 const port = 3000;
@@ -32,7 +34,34 @@ app.post("/comment", (req, res) => {
     </html>
   `);
 });
-
+if (input.includes("<img src=x onerror=alert('XSS')>")) {
+    const event = {
+      execution: "detected_payload",
+      payload: input,
+      location: "/comment",
+      timestamp: Date.now()
+    };
+if (input.includes(""<h1 style="color:red">Hacked</h1>"")) {
+    const event = {
+      execution: "detected_payload",
+      payload: input,
+      location: "/comment",
+      timestamp: Date.now()
+    };
+if (input.includes("<a href="javascript:alert('XSS')">Click me</a>")) {
+    const event = {
+      execution: "detected_payload",
+      payload: input,
+      location: "/comment",
+      timestamp: Date.now()
+    };
+if (input.includes("<input autofocus onfocus=alert('XSS')>")) {
+    const event = {
+      execution: "detected_payload",
+      payload: input,
+      location: "/comment",
+      timestamp: Date.now()
+    };
 /**
  * Client-side XSS execution reports arrive here
  */
@@ -60,6 +89,12 @@ app.get("/xss-monitor.js", (req, res) => {
 
 app.listen(port, () => {
   console.log(`XSS AI lab running at http://localhost:${port}`);
+});
+const fs = require('fs');
+
+fs.appendFile('log.txt', '\nNew line added!', (err) => {
+  if (err) throw err;
+  console.log('Content appended');
 });
 
 /* ----------------- Helpers ----------------- */
@@ -130,4 +165,4 @@ const monitorScript = `
     });
   });
 })();
-`;
+;
