@@ -2,6 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import OpenAI from "openai";
 import fs from "fs";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 const port = 3000;
