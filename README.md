@@ -21,6 +21,10 @@ We will be using one intentionally vulnerable web page to demonstrate with, AI t
 Our project will use the **phi4-reasoning:latest (14.7B)** AI model. We chose this model because it is designed for strong logical reasoning and technical explanations, which makes it well suited for analyzing web security vulnerabilities like Cross-Site Scripting (XSS). When an XSS payload is executed, relevant request and response data will be automatically sent to the model for analysis. The AI will then generate a clear explanation of the vulnerability type, why it occurred, and specific remediation steps developers can apply to secure the page. This allows the system to function as both a demonstration tool and an intelligent assistant for secure coding guidance.
 
 ## Update
-- Have logging in backend point to the log file - laney
 - figure out suggestions and explanations
 - Integrate AI - sofia 
+
+## How to use
+- npm install when you cd into the file
+- the npm install is for the package.json
+- node server.js is the next step. 
