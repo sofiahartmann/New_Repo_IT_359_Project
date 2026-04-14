@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XSS Analysis Dashboard</title>
+    <style>
+      :root {
+        --bg: #eff4ef;
+        --panel: rgba(252, 255, 252, 0.95);
+        --ink: #14201a;
+        --muted: #647166;
+        --accent: #1f6b46;
+        --line: rgba(20, 32, 26, 0.12);
+        --shadow: 0 18px 46px rgba(29, 55, 39, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: "Palatino Linotype", Georgia, serif;
+        background:
+          radial-gradient(circle at top right, rgba(120, 181, 140, 0.2), transparent 24%),
+          linear-gradient(135deg, #edf3ec 0%, #f8fbf7 54%, #e8efe7 100%);
+      }
+
+      main {
+        width: min(1240px, calc(100% - 28px));
+        margin: 28px auto;
+        display: grid;
+        gap: 18px;
+      }
+
+      .hero,
+      .panel,
+      .entry {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero,
+      .panel,
+      .entry {
+        padding: 24px;
+      }
+
+      .hero-tag {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(31, 107, 70, 0.12);
+        color: var(--accent);
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin-top: 12px;
+        font-size: clamp(2rem, 5vw, 4rem);
+        line-height: 0.98;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .top-grid {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: 280px 1fr;
+      }
+
+      .stats {
+        display: grid;
+        gap: 14px;
+      }
+
+      .stat-number {
+        font-size: 2.2rem;
+        font-weight: 700;
+      }
+
+      .entries {
+        display: grid;
+        gap: 16px;
+      }
+
+      .entry-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .entry time {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      code,
+      pre {
+        font-family: "Courier New", monospace;
+      }
+
+      pre {
+        margin: 12px 0 0;
+        padding: 14px;
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        background: #fbfdfa;
+        white-space: pre-wrap;
+        word-break: break-word;
+        line-height: 1.55;
+      }
+
+      .actions a {
+        color: var(--accent);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      @media (max-width: 900px) {
+        .top-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .entry-head {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <span class="hero-tag">Analysis Dashboard</span>
+        <h1>XSS Logs And AI Explanations</h1>
+        <p class="muted">
+          This page stays separate from the vulnerable demo. It collects each submitted payload and the AI explanation so you can review behavior and remediation in one place.
+        </p>
+      </section>
+
+      <section class="top-grid">
+        <article class="panel stats">
+          <div>
+            <h2>Total Entries</h2>
+            <div id="entry-count" class="stat-number">0</div>
+          </div>
+          <div>
+            <h2>Last Updated</h2>
+            <p id="last-updated" class="muted">Waiting for data</p>
+          </div>
+          <div class="actions">
+            <a href="/lab">Back To Vulnerable Page</a>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h2>How To Use It</h2>
+          <p class="muted">
+            Submit a payload on the vulnerable page, then return here. The newest analysis appears first and includes the exact input plus the AI explanation of impact and remediation.
+          </p>
+        </article>
+      </section>
+
+      <section>
+        <div id="entries" class="entries"></div>
+      </section>
+    </main>
+
+    <script>
+      const entriesEl = document.getElementById("entries");
+      const countEl = document.getElementById("entry-count");
+      const updatedEl = document.getElementById("last-updated");
+
+      function formatTime(value) {
+        const date = new Date(value);
+        return Number.isNaN(date.getTime()) ? value : date.toLocaleString();
+      }
+
+      function renderEntries(entries) {
+        countEl.textContent = String(entries.length);
+        updatedEl.textContent = entries.length ? formatTime(entries[0].createdAt) : "No submissions yet";
+
+        if (!entries.length) {
+          entriesEl.innerHTML = `
+            <article class="entry">
+              <h3>No entries yet</h3>
+              <p class="muted">Trigger an analysis from the vulnerable page and it will appear here.</p>
+            </article>
+          `;
+          return;
+        }
+
+        entriesEl.innerHTML = entries
+          .map(
+            (entry) => `
+              <article class="entry">
+                <div class="entry-head">
+                  <h3>Payload ${entry.id}</h3>
+                  <time datetime="${entry.createdAt}">${formatTime(entry.createdAt)}</time>
+                </div>
+                <p class="muted">Submitted input</p>
+                <pre>${escapeHtml(entry.input)}</pre>
+                <p class="muted">AI analysis</p>
+                <pre>${escapeHtml(entry.analysis)}</pre>
+              </article>
+            `
+          )
+          .join("");
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      async function loadEntries() {
+        try {
+          const response = await fetch("/dashboard/api/entries");
+          const data = await response.json();
+          renderEntries(Array.isArray(data.entries) ? data.entries : []);
+        } catch (error) {
+          entriesEl.innerHTML = `
+            <article class="entry">
+              <h3>Unable to load entries</h3>
+              <p class="muted">${error.message}</p>
+            </article>
+          `;
+        }
+      }
+
+      loadEntries();
+      setInterval(loadEntries, 5000);
+    </script>
+  </body>
+</html>

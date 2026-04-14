@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XSS Vulnerable Page</title>
+    <style>
+      :root {
+        --paper: rgba(255, 251, 245, 0.95);
+        --ink: #182033;
+        --muted: #5f6675;
+        --accent: #b84727;
+        --line: rgba(24, 32, 51, 0.12);
+        --shadow: 0 20px 55px rgba(71, 46, 22, 0.13);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: Georgia, "Times New Roman", serif;
+        background:
+          radial-gradient(circle at top left, rgba(242, 200, 113, 0.42), transparent 26%),
+          radial-gradient(circle at bottom right, rgba(184, 71, 39, 0.14), transparent 25%),
+          linear-gradient(135deg, #f3ebdd 0%, #faf5ec 55%, #eee4d4 100%);
+      }
+
+      main {
+        width: min(980px, calc(100% - 28px));
+        margin: 28px auto;
+        display: grid;
+        gap: 18px;
+      }
+
+      .hero,
+      .panel {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero {
+        padding: 28px;
+      }
+
+      .tag {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(184, 71, 39, 0.12);
+        color: var(--accent);
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+      }
+
+      h1 {
+        margin-top: 12px;
+        font-size: clamp(2.2rem, 6vw, 4.4rem);
+        line-height: 0.96;
+        max-width: 10ch;
+      }
+
+      .hero p,
+      .muted,
+      #status {
+        color: var(--muted);
+      }
+
+      .panel {
+        padding: 22px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 700;
+        font-size: 0.92rem;
+      }
+
+      textarea,
+      pre,
+      iframe {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: #fffdf9;
+      }
+
+      textarea {
+        min-height: 150px;
+        padding: 16px;
+        resize: vertical;
+        font: inherit;
+        font-size: 1rem;
+      }
+
+      pre {
+        min-height: 300px;
+        margin: 0;
+        padding: 16px;
+        white-space: pre-wrap;
+        word-break: break-word;
+        line-height: 1.55;
+        font-family: "Courier New", monospace;
+      }
+
+      iframe {
+        min-height: 300px;
+      }
+
+      button {
+        margin-top: 14px;
+        border: 0;
+        border-radius: 999px;
+        padding: 12px 18px;
+        color: white;
+        background: linear-gradient(135deg, var(--accent), #842610);
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .secondary-link {
+        display: inline-block;
+        margin-top: 14px;
+        color: var(--accent);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .meta {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      @media (max-width: 900px) {
+        .meta {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <span class="tag">Intentionally Vulnerable Page</span>
+        <h1>Reflected XSS Demo</h1>
+        <p>
+          This page focuses only on the vulnerable behavior. Submit an input, watch it render in the isolated preview, and then open the dashboard to review the AI analysis and log history.
+        </p>
+        <a class="secondary-link" href="/dashboard">Open Analysis Dashboard</a>
+      </section>
+
+      <section class="panel">
+        <h2>Submit Payload</h2>
+        <p class="muted">
+          This form intentionally sends untrusted input into an unsafe HTML sink inside the preview below.
+        </p>
+        <form id="lab-form">
+          <label for="payload">XSS Input</label>
+          <textarea id="payload" placeholder="Paste the input you want to test"></textarea>
+          <button type="submit">Trigger Analysis</button>
+        </form>
+        <p id="status"></p>
+      </section>
+
+      <section class="meta">
+        <article class="panel">
+          <h2>Vulnerable Preview</h2>
+          <p class="muted">
+            This preview intentionally reflects the input directly into HTML.
+          </p>
+          <iframe id="preview" sandbox="allow-scripts" title="XSS preview"></iframe>
+        </article>
+
+        <article class="panel">
+          <h2>Sandbox Activity</h2>
+          <p class="muted">
+            The isolated preview reports back when script behavior is triggered.
+          </p>
+          <pre id="sandbox-log">No activity yet.</pre>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const form = document.getElementById("lab-form");
+      const payloadEl = document.getElementById("payload");
+      const previewEl = document.getElementById("preview");
+      const sandboxLogEl = document.getElementById("sandbox-log");
+      const statusEl = document.getElementById("status");
+
+      function encodeForTemplateLiteral(value) {
+        return String(value)
+          .replace(/\\/g, "\\\\")
+          .replace(/`/g, "\\`")
+          .replace(/\$\{/g, "\\${");
+      }
+
+      function buildPreviewDocument(payload) {
+        const unsafePayload = encodeForTemplateLiteral(payload);
+
+        return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body { font-family: Arial, sans-serif; padding: 16px; color: #111; background: #fff; }
+      .banner { margin-bottom: 12px; padding: 10px 12px; border-radius: 10px; background: #fff1cc; }
+      .log { margin-top: 16px; padding-top: 12px; border-top: 1px solid #ddd; white-space: pre-wrap; font-family: monospace; }
+    </style>
+    <script>
+      const send = (message) => parent.postMessage({ type: "lab-log", message }, "*");
+      window.alert = (message) => send("alert() called with: " + message);
+      window.onerror = (message) => send("JavaScript error: " + message);
+      window.addEventListener("DOMContentLoaded", () => send("Sandbox loaded."));
+    <\/script>
+  </head>
+  <body>
+    <div class="banner">Unsafe reflected output below:</div>
+    ${unsafePayload}
+    <div class="log">Payload activity will be reported to the parent page.</div>
+  </body>
+</html>`;
+      }
+
+      function renderPayload(payload) {
+        sandboxLogEl.textContent = "Sandbox reset. Waiting for payload activity...";
+        previewEl.srcdoc = buildPreviewDocument(payload);
+      }
+
+      window.addEventListener("message", (event) => {
+        if (event.data?.type !== "lab-log") {
+          return;
+        }
+
+        const current = sandboxLogEl.textContent.trim();
+        sandboxLogEl.textContent =
+          current === "No activity yet." || current === "Sandbox reset. Waiting for payload activity..."
+            ? event.data.message
+            : current + "\n" + event.data.message;
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const input = payloadEl.value.trim();
+        if (!input) {
+          statusEl.textContent = "Enter an input first.";
+          return;
+        }
+
+        statusEl.textContent = "Rendering payload and requesting analysis...";
+        renderPayload(input);
+
+        try {
+          const response = await fetch("/lab/analyze", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ input })
+          });
+
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.error || "Analysis failed.");
+          }
+
+          statusEl.innerHTML = `Analysis saved. <a class="secondary-link" href="${data.dashboardUrl}">Open dashboard</a>`;
+        } catch (error) {
+          statusEl.textContent = error.message;
+        }
+      });
+    </script>
+  </body>
+</html>

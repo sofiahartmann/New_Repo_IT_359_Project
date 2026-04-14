@@ -1,0 +1,180 @@
+[INPUT] 2026-04-14T18:14:08.464Z <h1 style="color:red">Hacked</h1>
+[ANALYSIS] 2026-04-14T18:14:08.847Z
+Verdict: Likely unsafe if reflected into HTML.
+
+Likely XSS Type: HTML injection that may become XSS in an unsafe sink.
+
+What This Input Would Do: If a page inserts this input into the DOM with an unsafe sink such as innerHTML, the browser may interpret it as executable markup or script. That can let attacker-controlled JavaScript run in the victim browser, read visible page data, modify the UI, or trigger actions as that user.
+
+How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible.
+
+Note: This response came from the built-in analyzer because the OpenAI API was unavailable.
+
+[INPUT] 2026-04-14T18:17:02.978Z <img src=x onerror=alert('XSS')>
+[ANALYSIS] 2026-04-14T18:17:03.381Z
+Verdict: Likely unsafe if reflected into HTML.
+
+Likely XSS Type: Reflected XSS using an inline event handler.
+
+What This Input Would Do: If a page inserts this input into the DOM with an unsafe sink such as innerHTML, the browser may interpret it as executable markup or script. That can let attacker-controlled JavaScript run in the victim browser, read visible page data, modify the UI, or trigger actions as that user.
+
+How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible.
+
+Note: This response came from the built-in analyzer because the OpenAI API was unavailable.
+
+[INPUT] 2026-04-14T18:17:31.974Z <h1 style="color:red">Hacked</h1>
+[ANALYSIS] 2026-04-14T18:17:32.163Z
+Verdict: Likely unsafe if reflected into HTML.
+
+Likely XSS Type: HTML injection that may become XSS in an unsafe sink.
+
+What This Input Would Do: If a page inserts this input into the DOM with an unsafe sink such as innerHTML, the browser may interpret it as executable markup or script. That can let attacker-controlled JavaScript run in the victim browser, read visible page data, modify the UI, or trigger actions as that user.
+
+How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible.
+
+Note: This response came from the built-in analyzer because the OpenAI API was unavailable.
+
+[INPUT] 2026-04-14T18:17:51.562Z <a href="javascript:alert('XSS')">Click me</a>
+[ANALYSIS] 2026-04-14T18:17:51.724Z
+Verdict: Likely unsafe if reflected into HTML.
+
+Likely XSS Type: Reflected XSS using a javascript: URL.
+
+What This Input Would Do: If a page inserts this input into the DOM with an unsafe sink such as innerHTML, the browser may interpret it as executable markup or script. That can let attacker-controlled JavaScript run in the victim browser, read visible page data, modify the UI, or trigger actions as that user.
+
+How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible.
+
+Note: This response came from the built-in analyzer because the OpenAI API was unavailable.
+
+[INPUT] 2026-04-14T18:18:11.087Z <input autofocus onfocus=alert('XSS')>
+[ANALYSIS] 2026-04-14T18:18:11.343Z
+Verdict: Likely unsafe if reflected into HTML.
+
+Likely XSS Type: Reflected XSS using an inline event handler.
+
+What This Input Would Do: If a page inserts this input into the DOM with an unsafe sink such as innerHTML, the browser may interpret it as executable markup or script. That can let attacker-controlled JavaScript run in the victim browser, read visible page data, modify the UI, or trigger actions as that user.
+
+How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible.
+
+Note: This response came from the built-in analyzer because the OpenAI API was unavailable.
+
+[INPUT] 2026-04-14T18:18:39.468Z Hello World
+[ANALYSIS] 2026-04-14T18:18:39.619Z
+Verdict: No strong XSS signature detected.
+
+Likely XSS Type: No obvious XSS pattern detected.
+
+What This Input Would Do: If a page inserts this input into the DOM with an unsafe sink such as innerHTML, the browser may interpret it as executable markup or script. That can let attacker-controlled JavaScript run in the victim browser, read visible page data, modify the UI, or trigger actions as that user.
+
+How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible.
+
+Note: This response came from the built-in analyzer because the OpenAI API was unavailable.
+
+[INPUT] 2026-04-14T18:36:07.770Z <input autofocus onfocus=alert('XSS')>
+[ANALYSIS] 2026-04-14T18:36:08.113Z
+Verdict: Likely unsafe if reflected into HTML.
+
+Likely XSS Type: Reflected XSS using an inline event handler.
+
+What This Input Would Do: If a page inserts this input into the DOM with an unsafe sink such as innerHTML, the browser may interpret it as executable markup or script. That can let attacker-controlled JavaScript run in the victim browser, read visible page data, modify the UI, or trigger actions as that user.
+
+How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible.
+
+Note: This response came from the built-in analyzer because the OpenAI API was unavailable.
+
+[INPUT] 2026-04-14T18:39:28.643Z <input autofocus onfocus=alert('XSS')>
+[ANALYSIS] 2026-04-14T18:39:29.002Z
+Verdict: Likely unsafe if reflected into HTML.
+
+Likely XSS Type: Reflected XSS using an inline event handler.
+
+What This Input Would Do: If a page inserts this input into the DOM with an unsafe sink such as innerHTML, the browser may interpret it as executable markup or script. That can let attacker-controlled JavaScript run in the victim browser, read visible page data, modify the UI, or trigger actions as that user.
+
+How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible.
+
+Note: This response came from the built-in analyzer because the OpenAI API was unavailable.
+
+[INPUT] 2026-04-14T18:52:17.936Z <input autofocus onfocus=alert('XSS')>
+[ANALYSIS] 2026-04-14T18:52:18.369Z
+Verdict: Likely unsafe if reflected into HTML.
+
+Likely XSS Type: Reflected XSS using an inline event handler.
+
+What This Input Would Do: If a page inserts this input into the DOM with an unsafe sink such as innerHTML, the browser may interpret it as executable markup or script. That can let attacker-controlled JavaScript run in the victim browser, read visible page data, modify the UI, or trigger actions as that user.
+
+How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible.
+
+Note: This response came from the built-in analyzer because the OpenAI API was unavailable.
+
+[INPUT] 2026-04-14T18:54:14.028Z <input autofocus onfocus=alert('XSS')>
+[ANALYSIS] 2026-04-14T18:54:14.330Z
+Verdict: Likely unsafe if reflected into HTML.
+
+Likely XSS Type: Reflected XSS using an inline event handler.
+
+What This Input Would Do: If a page inserts this input into the DOM with an unsafe sink such as innerHTML, the browser may interpret it as executable markup or script. That can let attacker-controlled JavaScript run in the victim browser, read visible page data, modify the UI, or trigger actions as that user.
+
+How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible.
+
+Note: This response came from the built-in analyzer because the OpenAI API was unavailable.
+
+[INPUT] 2026-04-14T19:05:02.162Z <a href="javascript:alert('XSS')">Click me</a>
+[ANALYSIS] 2026-04-14T19:05:02.774Z
+Verdict: Likely unsafe if reflected into HTML.
+
+Likely XSS Type: Reflected XSS using a javascript: URL.
+
+What This Input Would Do: If a page inserts this input into the DOM with an unsafe sink such as innerHTML, the browser may interpret it as executable markup or script. That can let attacker-controlled JavaScript run in the victim browser, read visible page data, modify the UI, or trigger actions as that user.
+
+How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible.
+
+[INPUT] 2026-04-14T19:39:27.125Z <img src=x onerror=alert('XSS')>
+[ANALYSIS] 2026-04-14T19:39:27.609Z
+Verdict: Likely unsafe if reflected into HTML.
+
+Likely XSS Type: Reflected XSS using an inline event handler.
+
+What This Input Would Do: If a page inserts this input into the DOM with an unsafe sink such as innerHTML, the browser may interpret it as executable markup or script. That can let attacker-controlled JavaScript run in the victim browser, read visible page data, modify the UI, or trigger actions as that user.
+
+How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible.
+
+[INPUT] 2026-04-14T19:39:56.858Z <h1 style="color:red">Hacked</h1>
+[ANALYSIS] 2026-04-14T19:39:57.029Z
+Verdict: Likely unsafe if reflected into HTML.
+
+Likely XSS Type: HTML injection that may become XSS in an unsafe sink.
+
+What This Input Would Do: If a page inserts this input into the DOM with an unsafe sink such as innerHTML, the browser may interpret it as executable markup or script. That can let attacker-controlled JavaScript run in the victim browser, read visible page data, modify the UI, or trigger actions as that user.
+
+How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible.
+
+[INPUT] 2026-04-14T19:40:25.727Z <a href="javascript:alert('XSS')">Click me</a>
+[ANALYSIS] 2026-04-14T19:40:25.907Z
+Verdict: Likely unsafe if reflected into HTML.
+
+Likely XSS Type: Reflected XSS using a javascript: URL.
+
+What This Input Would Do: If a page inserts this input into the DOM with an unsafe sink such as innerHTML, the browser may interpret it as executable markup or script. That can let attacker-controlled JavaScript run in the victim browser, read visible page data, modify the UI, or trigger actions as that user.
+
+How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible.
+
+[INPUT] 2026-04-14T19:40:52.847Z <input autofocus onfocus=alert('XSS')>
+[ANALYSIS] 2026-04-14T19:40:53.029Z
+Verdict: Likely unsafe if reflected into HTML.
+
+Likely XSS Type: Reflected XSS using an inline event handler.
+
+What This Input Would Do: If a page inserts this input into the DOM with an unsafe sink such as innerHTML, the browser may interpret it as executable markup or script. That can let attacker-controlled JavaScript run in the victim browser, read visible page data, modify the UI, or trigger actions as that user.
+
+How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible.
+
+[INPUT] 2026-04-14T19:41:22.182Z Hello World
+[ANALYSIS] 2026-04-14T19:41:22.352Z
+Verdict: No strong XSS signature detected.
+
+Likely XSS Type: No obvious XSS pattern detected.
+
+What This Input Would Do: If a page inserts this input into the DOM with an unsafe sink such as innerHTML, the browser may interpret it as executable markup or script. That can let attacker-controlled JavaScript run in the victim browser, read visible page data, modify the UI, or trigger actions as that user.
+
+How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible.
+
