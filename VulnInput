@@ -1,3 +1,5 @@
+# vulnerable inputs for testing
+
 <img src=x onerror=alert('XSS')>
 
 <h1 style="color:red">Hacked</h1>
