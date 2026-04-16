@@ -197,7 +197,12 @@
         </article>
       </section>
     </main>
-
+<!-- SCRIPT SECTION:
+         - Handles payload submission
+         - Builds vulnerable preview environment
+         - Listens for sandbox messages
+         - Sends input to backend for analysis
+         - Updates UI with status and results -->
     <script>
       const form = document.getElementById("lab-form");
       const payloadEl = document.getElementById("payload");
