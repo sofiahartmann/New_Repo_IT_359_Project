@@ -1,13 +1,19 @@
 {
+  // Project Metadata
   "name": "xss-ai-lab",
   "version": "1.0.0",
   "type": "module",
+  // Entry point
   "main": "server.js",
+  // Dependencies
+  // External libraries required for backend functionality
   "dependencies": {
     "express": "^4.18.2",
     "dotenv": "^16.4.5",
     "openai": "^4.0.0"
   },
+  // Scripts
+ // For running the application
   "scripts": {
     "start": "node server.js"
   }
