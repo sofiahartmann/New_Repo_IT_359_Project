@@ -1,9 +1,11 @@
 <!doctype html>
 <html lang="en">
+ <!-- HEAD: Metadata, title, and styling -->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>XSS Analysis Dashboard</title>
+    <!-- Styling: Handles layout, colors, and responsiveness -->
     <style>
       :root {
         --bg: #eff4ef;
@@ -18,7 +20,7 @@
       * {
         box-sizing: border-box;
       }
-
+<!-- BODY: Main visible dashboard content -->
       body {
         margin: 0;
         min-height: 100vh;
@@ -183,7 +185,12 @@
         <div id="entries" class="entries"></div>
       </section>
     </main>
-
+ <!-- SCRIPT SECTION:
+         - Fetches data from API
+         - Formats timestamps
+         - Renders entries
+         - Escapes input (prevents XSS)
+         - Auto-refreshes dashboard -->
     <script>
       const entriesEl = document.getElementById("entries");
       const countEl = document.getElementById("entry-count");
