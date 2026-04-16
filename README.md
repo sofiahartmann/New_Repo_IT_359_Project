@@ -21,7 +21,7 @@ We will be using one intentionally vulnerable web page to demonstrate with, AI t
 
 ## Implementation of AI
 
-Our project will use the **phi4-reasoning:latest (14.7B)** AI model. We chose this model because it is designed for strong logical reasoning and technical explanations, which makes it well suited for analyzing web security vulnerabilities like Cross-Site Scripting (XSS). When an XSS payload is executed, relevant request and response data will be automatically sent to the model for analysis. The AI will then generate a clear explanation of the vulnerability type, why it occurred, and specific remediation steps developers can apply to secure the page. This allows the system to function as both a demonstration tool and an intelligent assistant for secure coding guidance.
+The project uses an AI analysis module to evaluate user inputs for potential XSS risks and explain their impact. When available, an AI model is used to generate structured feedback. If the AI service is not available, the system uses a built-in rule-based method to detect common malicious patterns and provide a similar safety-focused explanation. This ensures the tool always produces security guidance, even without external AI support.
 
 # How to use
 Run the standalone lab with:
