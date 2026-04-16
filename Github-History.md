@@ -1,1 +1,1 @@
-# A full history of our github commits
+# A full history of our Github commits
