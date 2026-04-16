@@ -1,8 +1,10 @@
+// Imports & Configuration
 import OpenAI from "openai";
 import dotenv from "dotenv";
 
 dotenv.config();
 
+// Setup
 const apiKey = process.env.OPENAI_API_KEY;
 
 const client = apiKey
@@ -11,6 +13,7 @@ const client = apiKey
     })
   : null;
 
+// Classification
 function classifyPayload(input) {
   const value = String(input || "");
   const lower = value.toLowerCase();
@@ -36,7 +39,7 @@ function classifyPayload(input) {
     type
   };
 }
-
+// Fallback analysis 
 function localFallback(input) {
   const result = classifyPayload(input);
 
@@ -47,15 +50,16 @@ function localFallback(input) {
     "How To Fix It: Do not render untrusted input as HTML. Use textContent or safe templating by default, apply contextual output encoding, sanitize any intentionally allowed HTML, and add a Content-Security-Policy that blocks inline script execution where possible."
   ].join("\n\n");
 }
-
+// Main analysis function
 export async function analyzePayload(input) {
   const payload = String(input || "").slice(0, 4000);
-
+// If no API client, use local fallback
   if (!client) {
     return localFallback(payload);
   }
 
   try {
+    // API Request
     const response = await client.chat.completions.create({
       model: "gpt-4o-mini",
       temperature: 0.2,
@@ -82,9 +86,10 @@ export async function analyzePayload(input) {
         }
       ]
     });
-
+// Response Handling
     return response.choices[0]?.message?.content?.trim() || localFallback(payload);
   } catch {
+    // Error Handling
     return localFallback(payload);
   }
 }
