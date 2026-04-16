@@ -1,5 +1,6 @@
 # XSS AI Lab
-
+# Project Video 
+https://youtu.be/Q6Z1GRYm9XM
 # IT-359-Group-Project
 We are going to use a XSS attack on an intentionally vulnerable site to then send information to a chat bot and have it suggest to developers what can be done to resolve the vulnerable site.
 
