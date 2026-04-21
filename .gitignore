@@ -4,6 +4,8 @@
 # Ignore logs
 *.log
 
-# Ignore report and history 
+# Ignore report 
 .pdf
 
+# Ignore history
+.docs
