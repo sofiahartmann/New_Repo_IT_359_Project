@@ -6,3 +6,8 @@ node_modules/
 
 # Ignore logs
 *.log
+
+# Ignore report and history 
+.pdf
+
+# Ignore 
